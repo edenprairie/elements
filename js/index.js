@@ -16,7 +16,7 @@ function registerElements(elements, exampleName) {
       form.querySelectorAll(
         "input[type='text'], input[type='email'], input[type='tel']"
       ),
-      function(input) {
+      function (input) {
         input.removeAttribute('disabled');
       }
     );
@@ -27,7 +27,7 @@ function registerElements(elements, exampleName) {
       form.querySelectorAll(
         "input[type='text'], input[type='email'], input[type='tel']"
       ),
-      function(input) {
+      function (input) {
         input.setAttribute('disabled', 'true');
       }
     );
@@ -46,8 +46,8 @@ function registerElements(elements, exampleName) {
 
   // Listen for errors from each Element, and show error messages in the UI.
   var savedErrors = {};
-  elements.forEach(function(element, idx) {
-    element.on('change', function(event) {
+  elements.forEach(function (element, idx) {
+    element.on('change', function (event) {
       if (event.error) {
         error.classList.add('visible');
         savedErrors[idx] = event.error.message;
@@ -58,7 +58,7 @@ function registerElements(elements, exampleName) {
         // Loop over the saved errors and find the first one, if any.
         var nextError = Object.keys(savedErrors)
           .sort()
-          .reduce(function(maybeFoundError, key) {
+          .reduce(function (maybeFoundError, key) {
             return maybeFoundError || savedErrors[key];
           }, null);
 
@@ -74,13 +74,13 @@ function registerElements(elements, exampleName) {
   });
 
   // Listen on the form's 'submit' handler...
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Trigger HTML5 validation UI on the form if any of the inputs fail
     // validation.
     var plainInputsValid = true;
-    Array.prototype.forEach.call(form.querySelectorAll('input'), function(
+    Array.prototype.forEach.call(form.querySelectorAll('input'), function (
       input
     ) {
       if (input.checkValidity && !input.checkValidity()) {
@@ -116,7 +116,7 @@ function registerElements(elements, exampleName) {
     // Use Stripe.js to create a token. We only need to pass in one Element
     // from the Element group in order to create a token. We can also pass
     // in the additional customer data we collected in our form.
-    stripe.createToken(elements[0], additionalData).then(function(result) {
+    stripe.createToken(elements[0], additionalData).then(function (result) {
       // Stop loading!
       example.classList.remove('submitting');
 
@@ -131,14 +131,14 @@ function registerElements(elements, exampleName) {
     });
   });
 
-  resetButton.addEventListener('click', function(e) {
+  resetButton.addEventListener('click', function (e) {
     e.preventDefault();
     // Resetting the form (instead of setting the value to `''` for each input)
     // helps us clear webkit autofill styles.
     form.reset();
 
     // Clear each Element.
-    elements.forEach(function(element) {
+    elements.forEach(function (element) {
       element.clear();
     });
 
